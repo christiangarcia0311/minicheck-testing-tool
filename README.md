@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="./assets/banner.png
+  <img src="assets/banner.png
   " width="350" height="250" alt="MiniCheck Banner">
 </p>
 
