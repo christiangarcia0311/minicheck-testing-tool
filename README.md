@@ -1,6 +1,5 @@
 <p align="center">
-  <img src="assets/banner.png
-  " width="350" height="250" alt="MiniCheck Banner">
+  <img src="/assets/banner.png" width="350" height="250" alt="MiniCheck Banner">
 </p>
 
 <h1 align="center">MiniCheck Testing Tool</h1>
