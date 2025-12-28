@@ -152,43 +152,50 @@ from app import app
 class TestAuthApp(Check):
   
   def setup(self):
-    self.client = app.test_client()
+      self.app = app
+      self.app.testing = True
+      self.client = self.app.test_client()
+      self.ctx = self.app.app_context()
+      self.ctx.push()
+
+  def teardown(self):
+      self.ctx.pop()
 
   def test_home_route(self):
-    response = self.client.get('/')
+      response = self.client.get('/')
 
-    self.status_code(response, 200)
-    self.json_equal(response, 'Welcome to MiniCheck App')
+      self.status_code(response, 200)
+      self.json_equal(response, 'message', 'Welcome to MiniCheck App')
   
   def test_login_success(self):
-    response = self.client.post('/signin', json={
+      response = self.client.post('/signin', json={
       'username': 'admin',
       'password': 'password123'
-    })
+      })
 
-    self.status_code(response, 200)
-    self.json_equal(response, 'success', True)
+      self.status_code(response, 200)
+      self.json_equal(response, 'success', True)
 
   def test_login_failed(self):
-    response = self.client.post('/signin', json={
+      response = self.client.post('/signin', json={
       'username': 'admin',
       'password': 'wrongpass'
-    })
+      })
 
-    self.status_code(response, 401)
-    self.json_equal(response, 'success', False)
+      self.status_code(response, 401)
+      self.json_equal(response, 'success', False)
 
   def test_profile_exist(self):
-    response = self.client.get('/profile/admin')
+      response = self.client.get('/profile/admin')
 
-    self.status_code(response, 200)
-    self.json_equal(response, 'username', 'admin')
+      self.status_code(response, 200)
+      self.json_equal(response, 'username', 'admin')
   
   def test_profile_nonexist(self):
-    response = self.client.get('/profile/guest')
+      response = self.client.get('/profile/guest')
 
-    self.status_code(response, 404)
-    self.json_equal(response, 'error', 'User credentials not found')
+      self.status_code(response, 404)
+      self.json_equal(response, 'error', 'User credentials not found')
 
 if __name__ == '__main__':
   TestAuthApp().run()
