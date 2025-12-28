@@ -189,9 +189,22 @@ Examples:
         if actual != expected_code: raise AssertionError(message or f'Expected status {expected_code}, got {actual}')
     
     def json_equal(self, response, key, expected_code, message=None):
-        try: data = response.json()
+        try:
+            
+            if hasattr(response, 'get_json'):
+                data = response.get_json()
+            elif hasattr(response, 'json'):
+                data = response.json
+                if callable(data):
+                    data = data()
+            else:
+                raise TypeError('Response has no JSON method')
+            
         except Exception as e: raise AssertionError(message or 'Response is not valid JSON')
         
+        if not isinstance(data, dict):
+            raise AssertionError(message or 'JSON response is not an object')
+    
         actual = data.get(key)
         if actual != expected_code: raise AssertionError(message or f'Expected JSON[{key}]={expected_code}, got {actual}')
         

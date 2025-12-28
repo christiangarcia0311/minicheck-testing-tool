@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "minicheck"
-version = "0.1.0"
+version = "0.1.1"
 description = "A minimal python testing tool that makes writing, organizing and executing tests fast and straightforward, keeping development workflows simple and clear."
 readme = "README.md"
 authors = [{ name = "Christian Garcia" }]

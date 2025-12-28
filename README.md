@@ -1,5 +1,6 @@
 <p align="center">
-  <img src="assets/banner.png" width="350" height="250" alt="MiniCheck Banner">
+  <img src="./assets/banner.png
+  " width="350" height="250" alt="MiniCheck Banner">
 </p>
 
 <h1 align="center">MiniCheck Testing Tool</h1>
@@ -106,17 +107,17 @@ def homepage():
 
 @app.route('/signin', methods=['POST'])
 def signin():
-  data = request.json()
+  data = request.get_json()
   username = data.get('username')
   password = data.get('password')
 
-  if not username or password:
+  if not username or not password:
     return jsonify({
       'success': False,
       'error': 'Missing credentials'
-    }, 400)
+    }), 400
 
-  if user.get(username) == password:
+  if dummy_users.get(username) == password:
     return jsonify({
       'success': True,
       'message': 'Sign-in successful'
@@ -125,7 +126,7 @@ def signin():
   return jsonify({
     'success': False,
     'error': 'Invalid username or password'
-  }, 401)
+  }), 401
 
 @app.route('/profile/<username>')
 def profile(username):
@@ -137,7 +138,7 @@ def profile(username):
   
   return jsonify({
     'error': 'User credentials not found'
-  }, 404)
+  }), 404
 
 if __name__ == '__main__':
   app.run(debug=True)
@@ -213,7 +214,8 @@ python test_auth_app.py --list
 
 ## Release & Versioning
 
-**Current version**: [minicheck v.0.1.0](https://pypi.org/project/minicheck)
+- **Current version**: [minicheck v.0.1.1](https://pypi.org/project/minicheck)
+- **Outdated version**: [minicheck v.0.1.0](https://pypi.org/project/minicheck/0.1.0/)
 
 
 ### How to Check for Updates

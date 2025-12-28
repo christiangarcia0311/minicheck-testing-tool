@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='minicheck',
-    version='0.1.0',
+    version='0.1.1',
     author='Christian Garcia',
     author_email='',
     description='A minimal python testing tool that makes writing, organizing and executing tests fast and straightforward, keeping development workflows simple and clear.',
